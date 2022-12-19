@@ -48,6 +48,11 @@ def create_app():
             'SCSS/myfirstscss.scss',
             filters='pyscss',
             output='Gen/renderedcss.css',
+  ),
+  'another_style': Bundle(
+            'SCSS/anotherscss.scss',
+            filters='pyscss',
+            output='Gen/anothercss.css',
   )
 } 
     assets.register(bundles)
