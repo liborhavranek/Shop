@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_assets import Environment, Bundle
 from flask_login import LoginManager
 from os import path
 from dotenv import load_dotenv
@@ -18,6 +19,7 @@ def create_app():
     app = Flask(__name__)
     configure()
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+
 
     
     
@@ -38,6 +40,17 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+    
+    assets = Environment(app) # create an Environment instance
+    
+    bundles = {  # define nested Bundle
+  'example_style': Bundle(
+            'SCSS/myfirstscss.scss',
+            filters='pyscss',
+            output='Gen/renderedcss.css',
+  )
+} 
+    assets.register(bundles)
     
     return app
 
